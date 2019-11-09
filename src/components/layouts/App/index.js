@@ -1,14 +1,11 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+import React from "react";
+import style from "styled-jsx/style";
 
-exports[`renders without crashing 1`] = `
-<div
-  className="App"
->
-  <style
-    global={true}
-    jsx={true}
-  >
-    
+const App = ({ children }) => (
+    <div className="App">
+        {children}
+
+        <style jsx global>{`
             body {
                 margin: 0;
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -21,7 +18,8 @@ exports[`renders without crashing 1`] = `
             .App {
                 margin: 2rem;
             }
-        
-  </style>
-</div>
-`;
+        `}</style>
+    </div>
+);
+
+export default App;

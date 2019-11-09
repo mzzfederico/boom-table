@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PhotoshootCell renders without crashing 1`] = `
+<div
+  className="photoshoot photoshoot-monday"
+>
+  <span
+    className="type"
+  >
+    Food
+  </span>
+  <span
+    className="package"
+  >
+    XL
+  </span>
+  <span
+    className="client"
+  >
+    90
+  </span>
+  <span
+    className="number_of_photos"
+  >
+    n/a
+  </span>
+  <style
+    jsx={true}
+  >
+    
+            .WeekTable .photoshoot-monday {
+                grid-column: 1
+            }
+        
+  </style>
+</div>
+`;
+
+exports[`WeekDayCol renders without crashing 1`] = `
+Array [
+  <div
+    className="column column-monday"
+  >
+    monday
+    <style
+      jsx={true}
+    >
+      
+                .WeekTable .column-monday {
+                    grid-column: 1
+                }
+            
+    </style>
+  </div>,
+  <div
+    className="photoshoot photoshoot-monday"
+  >
+    <span
+      className="type"
+    >
+      Food
+    </span>
+    <span
+      className="package"
+    >
+      XL
+    </span>
+    <span
+      className="client"
+    >
+      90
+    </span>
+    <span
+      className="number_of_photos"
+    >
+      n/a
+    </span>
+    <style
+      jsx={true}
+    >
+      
+            .WeekTable .photoshoot-monday {
+                grid-column: 1
+            }
+        
+    </style>
+  </div>,
+]
+`;
+
+exports[`WeekTable renders without crashing 1`] = `
+<div
+  className="WeekTable"
+>
+  <div
+    className="column column-monday"
+  >
+    monday
+    <style
+      jsx={true}
+    >
+      
+                .WeekTable .column-monday {
+                    grid-column: 1
+                }
+            
+    </style>
+  </div>
+  <div
+    className="column column-tuesday"
+  >
+    tuesday
+    <style
+      jsx={true}
+    >
+      
+                .WeekTable .column-tuesday {
+                    grid-column: 2
+                }
+            
+    </style>
+  </div>
+  <div
+    className="column column-wednesday"
+  >
+    wednesday
+    <style
+      jsx={true}
+    >
+      
+                .WeekTable .column-wednesday {
+                    grid-column: 3
+                }
+            
+    </style>
+  </div>
+  <div
+    className="column column-thursday"
+  >
+    thursday
+    <style
+      jsx={true}
+    >
+      
+                .WeekTable .column-thursday {
+                    grid-column: 4
+                }
+            
+    </style>
+  </div>
+  <div
+    className="column column-friday"
+  >
+    friday
+    <style
+      jsx={true}
+    >
+      
+                .WeekTable .column-friday {
+                    grid-column: 5
+                }
+            
+    </style>
+  </div>
+  <div
+    className="column column-saturday"
+  >
+    saturday
+    <style
+      jsx={true}
+    >
+      
+                .WeekTable .column-saturday {
+                    grid-column: 6
+                }
+            
+    </style>
+  </div>
+  <div
+    className="column column-sunday"
+  >
+    sunday
+    <style
+      jsx={true}
+    >
+      
+                .WeekTable .column-sunday {
+                    grid-column: 7
+                }
+            
+    </style>
+  </div>
+  <style
+    jsx={true}
+  >
+    
+            .WeekTable {
+                display: grid;
+                grid-auto-flow: column;
+                grid-template-columns: repeat(7, 1fr);
+            }
+        
+  </style>
+</div>
+`;

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+Array [
+  <h1>
+    Not found
+  </h1>,
+  <h2>
+    Nothing found for page 
+    /botched_route
+    .
+  </h2>,
+]
+`;

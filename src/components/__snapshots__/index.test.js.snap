@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<div
+  className="App"
+>
+  <style
+    jsx={true}
+  >
+    
+                body {
+                    margin: 0;
+                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+                    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+                    sans-serif;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                }
+            
+  </style>
+  <style
+    global={true}
+    jsx={true}
+  >
+    
+                body {
+                    margin: 0;
+                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+                    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+                    sans-serif;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                }
+            
+  </style>
+</div>
+`;

@@ -2,34 +2,139 @@
 
 exports[`PhotoshootCell renders without crashing 1`] = `
 <div
-  className="photoshoot photoshoot-monday"
+  className="photoshoot photoshoot-monday odd"
 >
-  <span
-    className="type"
+  <div
+    className="meta"
   >
-    Food
-  </span>
-  <span
-    className="package"
-  >
-    XL
-  </span>
-  <span
-    className="client"
-  >
-    90
-  </span>
-  <span
+    <span
+      className="tag food"
+    >
+      Food
+      <style
+        jsx={true}
+      >
+        
+                .tag {
+                    border: 1px solid #333;
+                    color: #333;
+                    text-transform: lowercase;
+                    font-variant: small-caps;
+                    font-weight: 700;
+                    font-size: 0.70rem;
+                    line-height: 0.70rem;
+                    padding: 0.1rem 0.3rem;
+                    margin-right: 0.25rem;
+                    border-radius: 5px;
+                }
+
+                .tag.real_estate {
+                    border: 0;
+                    color: white;
+                    background-color: red;
+                }
+
+                .tag.events {
+                    border: 0;
+                    color: white;
+                    background-color: blue;
+                }
+
+                .tag.food {
+                    border: 0;
+                    color: white;
+                    background-color: green;
+                }
+            
+      </style>
+    </span>
+    <span
+      className="tag xl"
+    >
+      XL
+      <style
+        jsx={true}
+      >
+        
+                .tag {
+                    border: 1px solid #333;
+                    color: #333;
+                    text-transform: lowercase;
+                    font-variant: small-caps;
+                    font-weight: 700;
+                    font-size: 0.70rem;
+                    line-height: 0.70rem;
+                    padding: 0.1rem 0.3rem;
+                    margin-right: 0.25rem;
+                    border-radius: 5px;
+                }
+
+                .tag.real_estate {
+                    border: 0;
+                    color: white;
+                    background-color: red;
+                }
+
+                .tag.events {
+                    border: 0;
+                    color: white;
+                    background-color: blue;
+                }
+
+                .tag.food {
+                    border: 0;
+                    color: white;
+                    background-color: green;
+                }
+            
+      </style>
+    </span>
+  </div>
+  <div
     className="number_of_photos"
   >
-    n/a
-  </span>
+    <span>
+      90
+    </span>
+    <span
+      className="label"
+    >
+      photos
+    </span>
+  </div>
+  <div
+    className="client"
+  >
+    client #
+    90
+  </div>
   <style
     jsx={true}
   >
     
-            .WeekTable .photoshoot-monday {
+            .photoshoot {
+                margin: 0.25rem 0;
+            }
+
+            .photoshoot-monday {
                 grid-column: 1
+            }
+
+            .photoshoot &gt; div {
+                margin-bottom: 0.125rem;
+            }
+
+            .number_of_photos span:nth-child(1) {
+                font-weight: 700;
+                margin-right: 0.25rem;
+            }
+
+            .number_of_photos span:nth-child(2) {
+                font-size: 0.8rem;
+            }
+
+            .client {
+                font-size: 0.7rem;
             }
         
   </style>
@@ -100,8 +205,17 @@ exports[`WeekTable renders without crashing 1`] = `
       jsx={true}
     >
       
-                .WeekTable .column-monday {
-                    grid-column: 1
+                .column {
+                    text-transform: lowercase;
+                    font-variant: small-caps;
+                    font-weight: 500;
+                    font-size: 0.85rem;
+                    border-bottom: 1px solid #f7f7f7;
+                    margin-bottom: 1rem;
+                }
+
+                .column-monday {
+                    grid-column: 1;
                 }
             
     </style>
@@ -114,8 +228,17 @@ exports[`WeekTable renders without crashing 1`] = `
       jsx={true}
     >
       
-                .WeekTable .column-tuesday {
-                    grid-column: 2
+                .column {
+                    text-transform: lowercase;
+                    font-variant: small-caps;
+                    font-weight: 500;
+                    font-size: 0.85rem;
+                    border-bottom: 1px solid #f7f7f7;
+                    margin-bottom: 1rem;
+                }
+
+                .column-tuesday {
+                    grid-column: 2;
                 }
             
     </style>
@@ -128,8 +251,17 @@ exports[`WeekTable renders without crashing 1`] = `
       jsx={true}
     >
       
-                .WeekTable .column-wednesday {
-                    grid-column: 3
+                .column {
+                    text-transform: lowercase;
+                    font-variant: small-caps;
+                    font-weight: 500;
+                    font-size: 0.85rem;
+                    border-bottom: 1px solid #f7f7f7;
+                    margin-bottom: 1rem;
+                }
+
+                .column-wednesday {
+                    grid-column: 3;
                 }
             
     </style>
@@ -142,8 +274,17 @@ exports[`WeekTable renders without crashing 1`] = `
       jsx={true}
     >
       
-                .WeekTable .column-thursday {
-                    grid-column: 4
+                .column {
+                    text-transform: lowercase;
+                    font-variant: small-caps;
+                    font-weight: 500;
+                    font-size: 0.85rem;
+                    border-bottom: 1px solid #f7f7f7;
+                    margin-bottom: 1rem;
+                }
+
+                .column-thursday {
+                    grid-column: 4;
                 }
             
     </style>
@@ -156,8 +297,17 @@ exports[`WeekTable renders without crashing 1`] = `
       jsx={true}
     >
       
-                .WeekTable .column-friday {
-                    grid-column: 5
+                .column {
+                    text-transform: lowercase;
+                    font-variant: small-caps;
+                    font-weight: 500;
+                    font-size: 0.85rem;
+                    border-bottom: 1px solid #f7f7f7;
+                    margin-bottom: 1rem;
+                }
+
+                .column-friday {
+                    grid-column: 5;
                 }
             
     </style>
@@ -170,8 +320,17 @@ exports[`WeekTable renders without crashing 1`] = `
       jsx={true}
     >
       
-                .WeekTable .column-saturday {
-                    grid-column: 6
+                .column {
+                    text-transform: lowercase;
+                    font-variant: small-caps;
+                    font-weight: 500;
+                    font-size: 0.85rem;
+                    border-bottom: 1px solid #f7f7f7;
+                    margin-bottom: 1rem;
+                }
+
+                .column-saturday {
+                    grid-column: 6;
                 }
             
     </style>
@@ -184,8 +343,17 @@ exports[`WeekTable renders without crashing 1`] = `
       jsx={true}
     >
       
-                .WeekTable .column-sunday {
-                    grid-column: 7
+                .column {
+                    text-transform: lowercase;
+                    font-variant: small-caps;
+                    font-weight: 500;
+                    font-size: 0.85rem;
+                    border-bottom: 1px solid #f7f7f7;
+                    margin-bottom: 1rem;
+                }
+
+                .column-sunday {
+                    grid-column: 7;
                 }
             
     </style>
@@ -194,12 +362,20 @@ exports[`WeekTable renders without crashing 1`] = `
     jsx={true}
   >
     
-            .WeekTable {
-                display: grid;
-                grid-auto-flow: column;
-                grid-template-columns: repeat(7, 1fr);
-            }
-        
+                    .WeekTable {
+                        display: grid;
+                        grid-auto-flow: column;
+                        grid-template-columns: repeat(7, 1fr);
+                    }
+
+                    .WeekTable &gt; div {
+                        padding: 0.5rem;
+                    }
+
+                    .WeekTable &gt; .odd {
+                        background-color: #f7f7f7;
+                    }
+                
   </style>
 </div>
 `;

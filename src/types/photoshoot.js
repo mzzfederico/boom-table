@@ -10,7 +10,7 @@ function Photoshoot ({
     id = 0,
     day_of_the_week = WEEK_DAYS[(Math.floor(Math.random() * WEEK_DAYS.length))],
     type = TYPES[((Math.floor(Math.random() * TYPES.length)))],
-    client_id = (Math.floor(Math.random() * 100)),
+    client_id = (Math.floor(Math.random() * 9) + 1),
     photoshoot_id = 0,
     details = new PhotoshootDetails({id: 0})
 }) {
@@ -27,7 +27,7 @@ function Photoshoot ({
 function PhotoshootDetails ({
     id = 0,
     title = "Test",
-    number_of_photos = (Math.floor(Math.random() * 100)),
+    number_of_photos = (Math.floor(Math.random() * 99) + 1),
     country = COUNTRIES[((Math.floor(Math.random() * COUNTRIES.length)))],
     package_size = SIZES[((Math.floor(Math.random() * SIZES.length)))]
 }) {
@@ -36,7 +36,7 @@ function PhotoshootDetails ({
         title,
         number_of_photos,
         country,
-        package_size
+        "package": package_size
     };
 }
 

@@ -9,50 +9,149 @@ const WEEK_DAYS = [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SAT
  * Displays a number of photoshoots over the week
  * @param {Array} props.photoshoots our photoshoots of the week
  */
-const WeekTable = ({photoshoots = []}) => (
-    <div className="WeekTable">
-        {/* Columns */}
-        {WEEK_DAYS.map(
-            day => {
-                const weekDayProps = {
-                    day,
-                    photoshoots: photoshoots.filter(photoshoot => photoshoot.day_of_the_week === day)
-                };
-                return <WeekDayCol key={day} {...weekDayProps} />;
-            }
-        )}
+const WeekTable = ({photoshoots = [], mode = "photoshoot"}) => {
+    /* I'm building an array of clients which will then have their own shots arranged. */
+    const clients = photoshoots.reduce((map, shoot) => {
+        const id = shoot.client_id;
+        if (map[id]) {
+            map[id] = map[id].concat(shoot);
+            return map;
+        } else {
+            map[id] = [ shoot ];
+            return map;
+        }
+    }, {});
 
-        <style jsx>{`
-            .WeekTable {
-                display: grid;
-                grid-auto-flow: column;
-                grid-template-columns: repeat(${WEEK_DAYS.length}, 1fr);
-            }
+    /* I'm building an array of types which will then have their own shots arranged. */
+    const types = photoshoots.reduce((map, shoot) => {
+        const type = shoot.type;
+        if (map[type]) {
+            map[type] = map[type].concat(shoot);
+            return map;
+        } else {
+            map[type] = [ shoot ];
+            return map;
+        }
+    }, {});
 
-            .WeekTable > div {
-                padding: 0.5rem;
-            }
+    /* We reduce the shoots to a single total, taking in account for an offset of the columns */
+    const totals = (offset = 2, position = "bottom") => WEEK_DAYS.map(
+        (day, i) => (
+            <PlainCell key={`${day}-total`} day={day} variant={`total-${position}`} column={i + offset} total={
+                photoshoots.filter(shoot => shoot.day_of_the_week === day).reduce(
+                    (total, nextShoot) => total + nextShoot.details.number_of_photos, 0
+                )}
+            />
+        )
+    );
+    
+    return (
+        <React.Fragment>
+            <div className="WeekTable">
+                {/* Columns */}
 
-            .WeekTable > .odd {
-                background-color: #f7f7f7;
-            }
-        `}</style>
-    </div>
-);
+                {/* Displaying the shoots */}
+                {mode === "photoshoot" ? WEEK_DAYS.map((day, i) => (
+                    <React.Fragment key={day}>
+                        <HeaderCell key={day} label={day} column={i + 1} />
+                        {totals(1, "top")[i]}
+                        {photoshoots
+                            .filter(photoshoot => photoshoot.day_of_the_week === day)
+                            .map((photoshoot, j) => (
+                                <PhotoshootCell 
+                                    key={photoshoot.photoshoot_id} 
+                                    day={day}
+                                    column={i + 1}
+                                    photoshoot={photoshoot} 
+                                    variant={j % 2 ? "odd" : ""} 
+                                />
+                            ))
+                        }
+                    </React.Fragment>
+                )) : null}
+
+                {/* Displaying the rows by client */}
+                {mode === "client" ? <React.Fragment>
+                    <HeaderCell label={"clients"} column={1} />
+                    {Object.keys(clients).map(client => <ClientCell>{client}</ClientCell>)}
+                    {WEEK_DAYS.map((day, i) => (
+                        <React.Fragment key={day}>
+                            <HeaderCell label={day} column={i + 2} />
+                            {/* For each client, display the total for the day of the week */}
+                            {Object.keys(clients)
+                                .map((client, j) => {
+                                    const shoots = clients[client].filter(shoot => shoot.day_of_the_week === day);
+                                    const totalPictures = shoots.reduce((total, shoot) => total + shoot.details.number_of_photos, 0);
+                                    return <PlainCell key={`${day}-${j}`} day={day} total={totalPictures} column={i + 2} photoshoots={shoots.length} variant={j % 2 ? "odd" : ""} />;
+                                })}
+                            {totals(2, "bottom")[i]}
+                        </React.Fragment>
+                    ))}
+                </React.Fragment> : null}
+
+                {/* Displaying the rows by type of photoshooting */}
+                {mode === "type" ? <React.Fragment>
+                    <HeaderCell label={"types"} column={1} />
+                    {Object.keys(types).map(type => <ClientCell>{type}</ClientCell>)}
+                    {WEEK_DAYS.map((day, i) => (
+                        <React.Fragment key={day}>
+                            <HeaderCell label={day} column={i + 2} />
+                            {/* For each client, display the total for the day of the week */}
+                            {Object.keys(types)
+                                .map((type, j) => {
+                                    const shoots = types[type].filter(shoot => shoot.day_of_the_week === day);
+                                    const totalPictures = shoots.reduce((total, shoot) => total + shoot.details.number_of_photos, 0);
+                                    return <PlainCell key={`${day}-${j}`} day={day} total={totalPictures} column={i + 2} photoshoots={shoots.length} variant={j % 2 ? "odd" : ""} />;
+                                })}
+                            {totals(2, "bottom")[i]}
+                        </React.Fragment>
+                    ))}
+                </React.Fragment> : null}
+
+                {/* Displaying the rows by type */}
+
+                <style jsx>{`
+                    .WeekTable {
+                        display: grid;
+                        grid-auto-flow: column;
+                        grid-template-columns: repeat(${mode === "photoshoot" ? WEEK_DAYS.length : WEEK_DAYS.length + 1}, 1fr);
+                    }
+
+                    .WeekTable > div {
+                        padding: 0.5rem;
+                    }
+
+                    .WeekTable > .odd {
+                        background-color: #f7f7f7;
+                    }
+
+                    .WeekTable > .total-bottom {
+                        border-top: 2px solid #f7f7f7;
+                    }
+
+                    .WeekTable > .total-top {
+                        border-bottom: 2px solid #f7f7f7;
+                    }
+                `}</style>
+            </div>
+        </React.Fragment>
+    );
+};
 
 WeekTable.propTypes = {
     photoshoots: PropTypes.array
 };
 
 /**
- * Displays each of our columns in fragments, to be reassebmled by the CSS grid
- * @param {String} props.day day we're displaying
+ * Displays the top of the column
+ * @param {String} props.label day we're displaying
+ * @param {Integer} props.column index of the column we've positioned our data
  */
-const WeekDayCol = ({day, photoshoots}) => (
+const HeaderCell = ({ label, column = 1}) => (
     <React.Fragment>
         {/* Column header */}
-        <div className={`column column-${day.toLocaleLowerCase()}`} key={day}>
-            {day.toLocaleLowerCase()}
+        <div className={`column column-${label.toLocaleLowerCase()}`}>
+            {label.toLocaleLowerCase()}
 
             <style jsx>{`
                 .column {
@@ -64,32 +163,31 @@ const WeekDayCol = ({day, photoshoots}) => (
                     margin-bottom: 1rem;
                 }
 
-                .column-${day.toLocaleLowerCase()} {
-                    grid-column: ${WEEK_DAYS.indexOf(day) + 1};
+                .column-${label.toLocaleLowerCase()} {
+                    grid-column: ${column};
                 }
             `}</style>
         </div>
-        {/* Single photoshoots */}
-        {photoshoots.map((photoshoot, index) => <PhotoshootCell key={photoshoot.photoshoot_id} day={day} photoshoot={photoshoot} odd={index % 2 ? true : false} />)}
     </React.Fragment>
 );
 
-WeekDayCol.propTypes = {
+HeaderCell.propTypes = {
     day: PropTypes.string,
-    photoshoots: PropTypes.array
+    column: PropTypes.number
 };
 
 /**
  * Displays each of our photoshoots in a single cell
  * @param {String} props.day day we're displaying
  * @param {Photoshoot} props.photoshoot shoot we're showing in the cell
- * @param {Boolean} props.odd wheter this is an odd cell (for styling)
+ * @param {String} props.variant adds somekind of special styling (total, odd)
+ * @param {Integer} props.column index of the column we've positioned our data
  */
-const PhotoshootCell = ({ day, photoshoot, odd = false }) => (
-    <div key={photoshoot.id} className={`photoshoot photoshoot-${day.toLocaleLowerCase()}${odd ? "" : " odd"}`}>
+const PhotoshootCell = ({ day, photoshoot, variant = "", column = 1 }) => (
+    <div key={photoshoot.id} className={`photoshoot photoshoot-${day.toLocaleLowerCase()} ${variant}`}>
         {/* Metadata */}
         <div className="meta">
-            <Tag type={photoshoot.type} /><Tag type={photoshoot.details.package_size} />
+            <Tag type={photoshoot.type} /><Tag type={photoshoot.details.package} />
         </div>
         {/* Number of photos */}
         <div className="number_of_photos">
@@ -105,7 +203,7 @@ const PhotoshootCell = ({ day, photoshoot, odd = false }) => (
             }
 
             .photoshoot-${day.toLocaleLowerCase()} {
-                grid-column: ${WEEK_DAYS.indexOf(day) + 1}
+                grid-column: ${column}
             }
 
             .photoshoot > div {
@@ -130,9 +228,77 @@ const PhotoshootCell = ({ day, photoshoot, odd = false }) => (
 
 PhotoshootCell.propTypes = {
     day: PropTypes.string,
-    photoshoot: PropTypes.object
+    photoshoot: PropTypes.object,
+    column: PropTypes.number
+};
+
+/**
+ * Simply displays the client identifier
+ * @param {String} param0 displays the label of the client cell
+ */
+const ClientCell = ({children}) => (
+    <div className="client-head">
+        <span>{children}</span>
+
+        <style jsx>{`
+            .client-head span {
+                margin: 0.25rem 0;
+                padding: 0.5rem;
+            }    
+        `}</style>
+    </div>
+);
+
+ClientCell.propTypes = {
+    children: PropTypes.object
+};
+
+/**
+ * Displays a combination a simple total of pictures from a number of photoshoots
+ * @param {String} props.day day we're displaying
+ * @param {Number} props.total total number of pictures
+ * @param {Number} props.photoshoots total number of photoshoots
+ * @param {String} props.variant adds somekind of special styling (total, odd)
+ * @param {Integer} props.column index of the column we've positioned our data
+ */
+const PlainCell = ({ day, total = 0, variant = "", photoshoots = 0, column = 1 }) => (
+    <div className={`client client-${day.toLocaleLowerCase()} ${variant}`}>
+        {/* Number of photos */}
+        <div className="number_of_photos">
+            {total > 0 ? <p className="label"><span>{total}</span> photos</p> : "-"}
+        </div>
+        {photoshoots > 0 && <span>{Array(photoshoots).fill().map((x, i) => "📷")}</span>}
+
+        <style jsx>{`
+            .client-${day.toLocaleLowerCase()} {
+                grid-column: ${column}
+            }
+
+            .client p {
+                font-size: 0.8rem;
+                margin: 0;
+            }
+
+            .client p span {
+                font-size: 1rem;
+                font-weight: 700;
+            }
+
+            .number_of_photos span:nth-child(2) {
+                font-size: 0.7rem;
+            }
+        `}</style>
+    </div>
+);
+
+PlainCell.propTypes = {
+    day: PropTypes.string,
+    variant: PropTypes.string,
+    total: PropTypes.number,
+    photoshoot: PropTypes.object,
+    column: PropTypes.number
 };
 
 export default WeekTable;
 
-export { WeekTable, PhotoshootCell, WeekDayCol };
+export { WeekTable, PhotoshootCell, HeaderCell };

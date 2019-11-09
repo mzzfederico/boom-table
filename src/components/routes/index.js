@@ -1,11 +1,19 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NotFound from "./NotFound";
+import Clients from "./clients";
+import Photoshoots from "./photoshoots";
+import Typologies from "./typologies";
+import Navbar from "../stateful/Navbar";
 
-const Routes = () => (
+const Routes = () =>  (
     <Router>
+        <Navbar />
         <Switch>
-            <Route exact path={"/"} /> {/* Main Page */}
+            <Route exact path={"/typologies"} component={Typologies} /> {/* Showing the status of typologies */}
+            <Route exact path={"/photoshoots"} component={Photoshoots} /> {/* Showing the status of photoshoots */}
+            <Route exact path={"/clients"} component={Clients} /> {/* Showing the status of clients */}
+            <Route exact path={"/"} component={Clients} /> {/* Showing the status of clients */}
             <Route component={NotFound} /> {/* Not found */}
         </Switch>
     </Router>

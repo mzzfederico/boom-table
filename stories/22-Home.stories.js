@@ -6,8 +6,8 @@ export default {
     title: "Routes/Home",
 };
 
-export const page_home = () => (
-    <MemoryRouter initialEntries={[ "/" ]}>
+export const Homepage = () => (
+    <MemoryRouter initialIndex={0} initialEntries={[ "/" ]}>
         <Home />
     </MemoryRouter>
 );

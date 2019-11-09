@@ -20,12 +20,16 @@ Handling my style, there's `styled-jsx`. It's pretty easy to reason around, and 
 
 ## Building our main table
 
-Ok, once I've initialized our app, storybook, some example tests and created an initial folder structure, I'll start working on our star of the show (the week timetable). I'll start by creating a branch of course. Next, I'll create a new story and add the component folder, while also dropping my thoughts here. I usually create a folder to store all the stuff pertaining to a feature next to it; this includes stylesheets, tests, utilities, hooks, and so on. 
+Ok, once I've initialized our app, storybook, some example tests and created an initial folder structure, I'll start working on our star of the show (the week timetable). I'll start by creating a branch of course. Next, I'll create a new story and add the component folder, while also dropping my thoughts here. I usually create a folder to store all the stuff pertaining to a feature next to it; this includes stylesheets, tests, utilities, hooks, and so on.
 
-Since your request is to build a table with the number of photos for each day and client and so on, I assume that you intend the API to represent a sample week of work. I will show future photoshoots in our week as "planned" so that it makes sense, and only load a number of them and paginate.
+Since your request is to build a table with the number of photos for each day and client and so on, I assume that you intend the API to represent a sample week of work.
 
-I'll put the days at the top in the columns, and display the shoots under them. They will be ordered by id (as I would guess that those are incremental) and since our query parameters are quite limited, there won't be an option to reverse. I'm also adding a filter for each client that was found.
+I'll put the days at the top in the columns, and display the shoots under them. They will be ordered by id (as I would guess that those are incremental) and since our query parameters are quite limited, there won't be an option to reverse.
 
-## Building a stats dashboard
+The table will have multiple modes. First, I built the view by photoshoot. Next, the view by client, and then, the one by event type.
 
-For this summary page, I will only query a finite number of shoots. I'm also making sections for each "taxonomy" so to speak: clients, types, day of the week.
+The API unfortunately doesn't provide a way to query by event, client or so, so I'm organizing the data on my end for now. In real project, I would've queried the clients, and built a dynamic scrolling loading list.
+
+## Observations on the API
+
+Unfortunately the data about photoshoot comes in two sets of items. While I would've definitely had to query separately for in-depth info about photoshots, the fact that we have to display sums for each of our data objects which aren't actually provided (dates, clients and types of photoshoots) makes it difficult to deal with different sets of data being parallel to each other. So for now, I just called both and mapped the details to the generic info. The data fetching is handled by a nice reimplementation of `axios` called `ky`, which has become my favorite way to do requests. It has a good amount of features and well replaces `axios`, which is now pretty much abandoned. I'm doing the calls with a simple effect, which is dispatching our actions to handle the state; which, by itself, is stored in a context at the top, so that it is shared between routes. I created a number of helper variables to make my source speak a little bit more like our business specs.

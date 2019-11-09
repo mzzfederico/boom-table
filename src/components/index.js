@@ -1,12 +1,17 @@
 import React from "react";
-import style from "styled-jsx/style";
 import Routes from "./routes";
 import App from "./layouts/App";
+import { useFetching } from "../hooks/useFetching";
+import { getPhotoshoots } from "../api";
+import { PhotoshootsProvider } from "../contexts/Photoshoots";
 
 function ApplicationRoot() {
+    const state = useFetching({ asyncFn: getPhotoshoots, args: [ 100, 0 ] });
     return (
         <App>
-            <Routes />
+            <PhotoshootsProvider value={state}>
+                <Routes />
+            </PhotoshootsProvider>
         </App>
     );
 }

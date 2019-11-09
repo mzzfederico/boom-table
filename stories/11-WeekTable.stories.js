@@ -20,3 +20,27 @@ export const WeekTable_withMock = () => {
     }
     return <WeekTable photoshoots={mockData} />;
 };
+
+export const WeekTable_with_Photoshoots_Display = () => {
+    let mockData = [];
+    for (let index = 100; index > 0; index--) {
+        mockData[index] = new MockPhotoshoot(index);
+    }
+    return <WeekTable photoshoots={mockData} mode={"photoshoot"} />;
+};
+
+export const WeekTable_with_Clients_Display = () => {
+    let mockData = [];
+    for (let index = 100; index > 0; index--) {
+        mockData[index] = new MockPhotoshoot(index);
+    }
+    return <WeekTable photoshoots={mockData} mode={"client"} />;
+};
+
+export const WeekTable_with_Events_Display = () => {
+    let mockData = [];
+    for (let index = 100; index > 0; index--) {
+        mockData[index] = new MockPhotoshoot(index);
+    }
+    return <WeekTable photoshoots={mockData} mode={"type"} />;
+};

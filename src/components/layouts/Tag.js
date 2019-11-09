@@ -1,7 +1,7 @@
 import React from "react";
 import style from "styled-jsx/style";
 
-const Tag = ({type}) => {
+const Tag = ({type = ""}) => {
     const typeClass = type.toLocaleLowerCase().replace(" ", "_");
 
     return (
@@ -27,7 +27,7 @@ const Tag = ({type}) => {
                     background-color: red;
                 }
 
-                .tag.events {
+                .tag.event {
                     border: 0;
                     color: white;
                     background-color: blue;
@@ -37,6 +37,12 @@ const Tag = ({type}) => {
                     border: 0;
                     color: white;
                     background-color: green;
+                }
+
+                .tag.other {
+                    border: 0;
+                    color: white;
+                    background-color: purple;
                 }
             `}</style>
         </span>

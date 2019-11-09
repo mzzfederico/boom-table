@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import style from "styled-jsx/style";
+import Tag from "../Tag";
 
 const WEEK_DAYS = [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" ];
 
@@ -31,6 +32,10 @@ const WeekTable = ({photoshoots = []}) => (
             .WeekTable > div {
                 padding: 0.5rem;
             }
+
+            .WeekTable > .odd {
+                background-color: #f7f7f7;
+            }
         `}</style>
     </div>
 );
@@ -45,6 +50,7 @@ WeekTable.propTypes = {
  */
 const WeekDayCol = ({day, photoshoots}) => (
     <React.Fragment>
+        {/* Column header */}
         <div className={`column column-${day.toLocaleLowerCase()}`} key={day}>
             {day.toLocaleLowerCase()}
 
@@ -52,9 +58,9 @@ const WeekDayCol = ({day, photoshoots}) => (
                 .column {
                     text-transform: lowercase;
                     font-variant: small-caps;
-                    font-weight: 700;
+                    font-weight: 500;
                     font-size: 0.85rem;
-                    border-bottom: 1px solid #ccc;
+                    border-bottom: 1px solid #f7f7f7;
                     margin-bottom: 1rem;
                 }
 
@@ -63,7 +69,8 @@ const WeekDayCol = ({day, photoshoots}) => (
                 }
             `}</style>
         </div>
-        {photoshoots.map((photoshoot) => <PhotoshootCell key={photoshoot.photoshoot_id} day={day} photoshoot={photoshoot} />)}
+        {/* Single photoshoots */}
+        {photoshoots.map((photoshoot, index) => <PhotoshootCell key={photoshoot.photoshoot_id} day={day} photoshoot={photoshoot} odd={index % 2 ? true : false} />)}
     </React.Fragment>
 );
 
@@ -76,17 +83,20 @@ WeekDayCol.propTypes = {
  * Displays each of our photoshoots in a single cell
  * @param {String} props.day day we're displaying
  * @param {Photoshoot} props.photoshoot shoot we're showing in the cell
+ * @param {Boolean} props.odd wheter this is an odd cell (for styling)
  */
-const PhotoshootCell = ({ day, photoshoot }) => (
-    <div key={photoshoot.id} className={`photoshoot photoshoot-${day.toLocaleLowerCase()}`}>
+const PhotoshootCell = ({ day, photoshoot, odd = false }) => (
+    <div key={photoshoot.id} className={`photoshoot photoshoot-${day.toLocaleLowerCase()}${odd ? "" : " odd"}`}>
+        {/* Metadata */}
         <div className="meta">
-            <span className="tag type">{photoshoot.type}</span>
-            <span className="tag package">{photoshoot.details.package_size}</span>
+            <Tag type={photoshoot.type} /><Tag type={photoshoot.details.package_size} />
         </div>
+        {/* Number of photos */}
         <div className="number_of_photos">
             <span>{photoshoot.details.number_of_photos > 0 ? photoshoot.details.number_of_photos : "n/a"}</span>
             <span className="label">photos</span>
         </div>
+        {/* Client identifier */}
         <div className="client">client #{photoshoot.client_id}</div>
 
         <style jsx>{`
@@ -100,19 +110,6 @@ const PhotoshootCell = ({ day, photoshoot }) => (
 
             .photoshoot > div {
                 margin-bottom: 0.125rem;
-            }
-
-            .tag {
-                border: 1px solid #ccc;
-                color: #ccc;
-                text-transform: lowercase;
-                font-variant: small-caps;
-                font-weight: 700;
-                font-size: 0.70rem;
-                line-height: 1rem;
-                padding: 0.1rem 0.3rem;
-                margin-right: 0.25rem;
-                border-radius: 5px;
             }
 
             .number_of_photos span:nth-child(1) {

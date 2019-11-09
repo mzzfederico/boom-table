@@ -27,8 +27,9 @@ const WeekTable = ({photoshoots = []}) => (
                 grid-auto-flow: column;
                 grid-template-columns: repeat(${WEEK_DAYS.length}, 1fr);
             }
+
             .WeekTable > div {
-                padding: 0.25rem;
+                padding: 0.5rem;
             }
         `}</style>
     </div>
@@ -48,12 +49,17 @@ const WeekDayCol = ({day, photoshoots}) => (
             {day.toLocaleLowerCase()}
 
             <style jsx>{`
-                .column-${day.toLocaleLowerCase()} {
-                    grid-column: ${WEEK_DAYS.indexOf(day) + 1};
+                .column {
                     text-transform: lowercase;
                     font-variant: small-caps;
                     font-weight: 700;
+                    font-size: 0.85rem;
                     border-bottom: 1px solid #ccc;
+                    margin-bottom: 1rem;
+                }
+
+                .column-${day.toLocaleLowerCase()} {
+                    grid-column: ${WEEK_DAYS.indexOf(day) + 1};
                 }
             `}</style>
         </div>
@@ -73,14 +79,53 @@ WeekDayCol.propTypes = {
  */
 const PhotoshootCell = ({ day, photoshoot }) => (
     <div key={photoshoot.id} className={`photoshoot photoshoot-${day.toLocaleLowerCase()}`}>
-        <span className="type">{photoshoot.type}</span>
-        <span className="package">{photoshoot.details.package_size}</span>
-        <span className="client">{photoshoot.client_id}</span>
-        <span className="number_of_photos">{photoshoot.details.photos > 0 ? photoshoot.details.photos : "n/a"}</span>
+        <div className="meta">
+            <span className="tag type">{photoshoot.type}</span>
+            <span className="tag package">{photoshoot.details.package_size}</span>
+        </div>
+        <div className="number_of_photos">
+            <span>{photoshoot.details.number_of_photos > 0 ? photoshoot.details.number_of_photos : "n/a"}</span>
+            <span className="label">photos</span>
+        </div>
+        <div className="client">client #{photoshoot.client_id}</div>
 
         <style jsx>{`
+            .photoshoot {
+                margin: 0.25rem 0;
+            }
+
             .photoshoot-${day.toLocaleLowerCase()} {
                 grid-column: ${WEEK_DAYS.indexOf(day) + 1}
+            }
+
+            .photoshoot > div {
+                margin-bottom: 0.125rem;
+            }
+
+            .tag {
+                border: 1px solid #ccc;
+                color: #ccc;
+                text-transform: lowercase;
+                font-variant: small-caps;
+                font-weight: 700;
+                font-size: 0.70rem;
+                line-height: 1rem;
+                padding: 0.1rem 0.3rem;
+                margin-right: 0.25rem;
+                border-radius: 5px;
+            }
+
+            .number_of_photos span:nth-child(1) {
+                font-weight: 700;
+                margin-right: 0.25rem;
+            }
+
+            .number_of_photos span:nth-child(2) {
+                font-size: 0.8rem;
+            }
+
+            .client {
+                font-size: 0.7rem;
             }
         `}</style>
     </div>

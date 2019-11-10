@@ -6,7 +6,7 @@ import { getPhotoshoots } from "../api";
 import { PhotoshootsProvider } from "../contexts/Photoshoots";
 
 function ApplicationRoot() {
-    const state = useFetching({ asyncFn: getPhotoshoots, args: [ 100, 0 ] });
+    const state = useFetching({ asyncFn: getPhotoshoots });
     return (
         <App>
             <PhotoshootsProvider value={state}>

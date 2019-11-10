@@ -1,17 +1,16 @@
 import React from "react";
 import WeekTable from "../layouts/WeekTable";
 import { usePhotoshoots } from "../../contexts/Photoshoots";
+import FadingEntry from "../layouts/FadingEntry";
 
 const Clients = () => {
-    const state = usePhotoshoots();
-
-    if (state.isLoading) return null;
-    if (!Array.isArray(state.data)) return null;
-    
+    const state = usePhotoshoots();    
     return (
-        <React.Fragment>
+        <FadingEntry 
+            isVisible={!state.isLoading && Array.isArray(state.data)}
+        >
             <WeekTable photoshoots={state.data} mode={"client"} />
-        </React.Fragment>
+        </FadingEntry>
     );
 };
 

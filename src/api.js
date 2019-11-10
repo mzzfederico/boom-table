@@ -3,10 +3,11 @@ import ky from "ky/umd";
 
 /**
  * Gets the request amount of photoshoots
- * @param {Number} limit max num of photoshoots obtained
- * @param {Number} offset offsets from the first photoshoot in the API
+ * @param {Number} params.limit max num of photoshoots obtained
+ * @param {Number} params.offset offsets from the first photoshoot in the API
  */
-const getPhotoshoots = async (limit, offset) => {
+const getPhotoshoots = async ({limit = 100, offset = 0}) => {
+    console.log(limit, offset);
     const response = await ky.get("/photoshoots_daily/", {
         searchParams: { limit, offset },
         throwHttpErrors: false,

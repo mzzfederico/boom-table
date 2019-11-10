@@ -35,6 +35,7 @@
     "dependencies": {
         "eslint": "^6.6.0",
         "eslint-plugin-react": "^7.16.0",
+        "framer-motion": "^1.6.15",
         "http-proxy-middleware": "^0.20.0",
         "jest": "^24.9.0",
         "ky": "^0.15.0",

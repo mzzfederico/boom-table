@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import style from "styled-jsx/style";
 import {withRouter, NavLink} from "react-router-dom";
+import { usePhotoshoots } from "../../../contexts/Photoshoots";
 
 const Navbar = () => {
+    const { page: currentPage, nextPage, previousPage } = usePhotoshoots();
     const [ openMenu, setOpenMenu ] = useState(false);
 
     return (
@@ -16,7 +18,13 @@ const Navbar = () => {
                 </ul>
             </div>
 
-            <div />
+            <div>
+                <ul>
+                    <button style={{ opacity: currentPage > 1 ? 1 : 0 }} onClick={() => previousPage()}>←</button>
+                    <span>{currentPage}</span>
+                    <button onClick={() => nextPage()}>→</button>
+                </ul>
+            </div>
 
             <style jsx>{`
             nav {
@@ -29,21 +37,31 @@ const Navbar = () => {
                 margin: 0;
                 padding: 0;
             }
-            .menu-btn {
+            button {
                 background: 0;
                 border: 1px solid #aaa;
                 margin-bottom: 0.5rem;
                 padding: 0.25rem 0.5rem;
             }
-            .menu-btn {
-                background: 0;
-                border: 1px solid #aaa;
-                margin-bottom: 0.5rem;
-                padding: 0.25rem 0.5rem;
+            button.menu-btn {
+                font-weight: 700;
+                border-bottom: 3px solid black;
             }
-            .menu-btn.active {
+            button.active {
                 background: #aaa;
                 color: white;
+            }
+            nav div:nth-child(2) ul {
+                float: right;
+                max-width: 320px;
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+            }
+            nav div:nth-child(2) ul span {
+                text-align: center;
+                padding: 0.1rem 2rem;
+                font-weight: 700;
+                font-size: 0.8rem;
             }
             @media screen and (max-width: 640px) {
                 ul.closed {

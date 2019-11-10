@@ -195,7 +195,7 @@ const WeekTable = ({photoshoots = [], mode = "photoshoot"}) => {
                     }
 
                     .WeekTable > div {
-                        padding: 0.5rem;
+                        padding: 0.25rem;
                     }
 
                     .WeekTable > .odd {
@@ -283,7 +283,7 @@ const PhotoshootCell = ({ day, photoshoot, variant = "", column = 1 }) => (
         </div>
         {/* Number of photos */}
         <div className="number_of_photos">
-            <span>{photoshoot.details.number_of_photos > 0 ? photoshoot.details.number_of_photos : "n/a"}</span>
+            <span>{photoshoot.details.number_of_photos > 0 ? photoshoot.details.number_of_photos.toLocaleString() : "n/a"}</span>
             <span className="label">photos</span>
         </div>
         {/* Client identifier */}
@@ -376,9 +376,9 @@ const PlainCell = ({ day, total = 0, variant = "", photoshoots = 0, column = 1 }
     <div className={`cell cell-${day.toLocaleLowerCase()} ${variant}`}>
         {/* Number of photos */}
         <div className="number">
-            {total > 0 ? <p><span>{total}</span> <span className="label">photos</span></p> : "-"}
+            {total > 0 ? <p><span>{total.toLocaleString()}</span> <span className="label">photos</span></p> : "-"}
         </div>
-        {photoshoots > 0 && <span className={"photoshoots-count"}>{Array(photoshoots).fill().map((x, i) => "📷")}</span>}
+        {photoshoots > 0 && <span className={"photoshoots-count"}>{Array(photoshoots).fill().map(() => "📷")}</span>}
 
         <style jsx>{`
             .cell-${day.toLocaleLowerCase()} {

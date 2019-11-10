@@ -132,7 +132,7 @@ const WeekTable = ({photoshoots = [], mode = "photoshoot"}) => {
                             }}
                             formatFn={(clientsIds) => clientsIds.map(
                                 (client, j) => {
-                                    const total = clients[client] .reduce((total, shoot) => total + shoot.details.number_of_photos, 0);
+                                    const total = clients[client].reduce((total, shoot) => total + shoot.details.number_of_photos, 0);
                                     return { day: "week-total", total: total, photoshoots: clients[client].length, variant: j % 2 ? "odd" : "" };
                                 }
                             )}

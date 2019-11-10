@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import WeekTable from "../layouts/WeekTable";
 import { usePhotoshoots } from "../../contexts/Photoshoots";
 

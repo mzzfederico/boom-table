@@ -8,7 +8,7 @@ Hello to everyone who will review this repository. I'll be commenting on my choi
 
 Since we're time costrained and it's not really a critical choice in the grand scheme of things, I'll just use `create-react-app` to inizialize this project. I've written a number of webpack configurations in the past but it's a time consuming part of a project, that often leads to try and errors because of the complicated schema required - even staring at the documentation. Some projects had me write for example simple translations from ES8 to ES5 just so I could inject widgets made with React around, or libraries that I could use to do stuff in the background but relying on a modern syntax and new features, which quickens the task. I even used it to make web workers.
 
-I'll be installing my usual libraries of choice, `react-router` and `react-intl`, just to handle localization and routing. Perhaps I will not need them until later but it's a safe bet.
+I'll be installing my usual libraries of choice, `react-router` and `react-intl`, just to handle localization and routing. Perhaps I will not need them until later (ndF: yeah, I really didn't have the time or will for such a small example.) but it's a safe bet.
 
 More importantly, I'll be installing `storybook` with a React configuration. It's a killer app for front end developers and designers working on the same project, because it can allow us to test components, views and more in isolation and make visual inspections easier. It's also full of useful addons and it integrates well with docs, tests, and more.
 
@@ -41,6 +41,7 @@ The data fetching is handled by a nice reimplementation of `axios` called `ky`, 
 While giving it a bit of a responsiveness at the end of the excercize, I realize that I would've probably did a better job, instead of mapping and declearing elements, to just add in a function that defines a column, takes in the component to display the single cell, the header, and a formatting function that would get the data from a messy bunch to a reasonable format.
 
 ```jsx
+    // pseudocode
     function DataColumn ({header = "", CellComponent, formatFn, totalFn, dataset = []}) {
         const dataColumn = formatFn(dataset);
         return (
@@ -55,4 +56,16 @@ While giving it a bit of a responsiveness at the end of the excercize, I realize
 
 I'm now nearing the end of my time doing this so I'll see if I can implement it without too much hassle. 
 
-I'm also handling the responsive for last while I should've started it at the beginning probably, but it's pretty basic anyway. Tables are really the hardest kind of element to display on a mobile phone, so I will have them scroll horizontally.
+I'm also handling the responsive for last while I should've started it at the beginning probably, but it's pretty basic anyway. Tables are really the hardest kind of element to display on a mobile phone, so I will have them scroll horizontally. I ended up making their content smaller, then added in a small animation.
+
+## Closing thoughts
+
+So, at the end of the process, I have a couple thoughts.
+
+- I'm still very weak at writing tests, I have yet to learn some proper TDD.
+- It's really hard to make up and build an UI without collaborating actively with a designer and a pregress design system around which I wrap my project. In a real business situation, I'd expect a designer to provide use cases and more, and to work together on a solution, if there isn't already a design system in place. Most of the work on a real interface would be already be done by the time we're at the step of implementing the end result. We would sit down and build the library if it is not present, or we're at risk of writing more code and leaving around stuff we won't actually mantain in the long term.
+- A good user interface would also be very deterministic and data driven, and such a thing would be impossible without strict collaboration with the back end. In particular, it needs some sort of meta informations if we were to implements a dashboard of sort that gives the entire picture for a time frame, without the need for multiple queries. Even better, let the UI call for the data it needs with a solution like GraphQL.
+
+---
+
+All said and done, you can run the project by doing `yarn start`, or run the tests with `yarn test`.

@@ -378,7 +378,10 @@ const PlainCell = ({ day, total = 0, variant = "", photoshoots = 0, column = 1 }
         <div className="number">
             {total > 0 ? <p><span>{total.toLocaleString()}</span> <span className="label">photos</span></p> : "-"}
         </div>
-        {photoshoots > 0 && <span className={"photoshoots-count"}>{Array(photoshoots).fill().map(() => "📷")}</span>}
+        {photoshoots > 0 ? <React.Fragment>
+            <span className={"photoshoots-count"}>{Array(photoshoots).fill().map(() => "📷")}</span>
+            <span className={"photoshoots-count-mobile"}>{Array(photoshoots).fill().map(() => "·")}</span>
+        </React.Fragment> : null}
 
         <style jsx>{`
             .cell-${day.toLocaleLowerCase()} {
@@ -409,6 +412,9 @@ const PlainCell = ({ day, total = 0, variant = "", photoshoots = 0, column = 1 }
                 }
                 .label, .photoshoots-count {
                     display: inline;
+                }
+                .photoshoots-count-mobile {
+                    display: none;
                 }
             }
 

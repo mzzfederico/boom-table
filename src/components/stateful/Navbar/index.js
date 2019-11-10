@@ -7,15 +7,21 @@ const Navbar = () => {
 
     return (
         <nav>
-            <button className={!openMenu ? "menu-btn" : "menu-btn active"} onClick={() => setOpenMenu(!openMenu)}>menu</button>
-            <ul className={!openMenu ? "closed" : ""}>
-                <ListLink to={"/clients"}>Clients</ListLink>
-                <ListLink to={"/photoshoots"}>Photoshoots</ListLink>
-                <ListLink to={"/typologies"}>Typologies</ListLink>
-            </ul>
+            <div>
+                <button className={!openMenu ? "menu-btn" : "menu-btn active"} onClick={() => setOpenMenu(!openMenu)}>menu</button>
+                <ul className={!openMenu ? "closed" : ""}>
+                    <ListLink to={"/clients"}>Clients</ListLink>
+                    <ListLink to={"/photoshoots"}>Photoshoots</ListLink>
+                    <ListLink to={"/typologies"}>Typologies</ListLink>
+                </ul>
+            </div>
+
+            <div />
 
             <style jsx>{`
             nav {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
                 margin-bottom: 1rem;
             }
             ul {
@@ -54,9 +60,6 @@ const Navbar = () => {
                 li {
                     display: inline;
                 }
-            }
-            li:nth-child(1) {
-                margin-right: 1rem;
             }
             li a {
                 padding: 0.25rem;

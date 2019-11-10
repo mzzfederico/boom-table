@@ -32,4 +32,27 @@ The API unfortunately doesn't provide a way to query by event, client or so, so 
 
 ## Observations on the API
 
-Unfortunately the data about photoshoot comes in two sets of items. While I would've definitely had to query separately for in-depth info about photoshots, the fact that we have to display sums for each of our data objects which aren't actually provided (dates, clients and types of photoshoots) makes it difficult to deal with different sets of data being parallel to each other. So for now, I just called both and mapped the details to the generic info. The data fetching is handled by a nice reimplementation of `axios` called `ky`, which has become my favorite way to do requests. It has a good amount of features and well replaces `axios`, which is now pretty much abandoned. I'm doing the calls with a simple effect, which is dispatching our actions to handle the state; which, by itself, is stored in a context at the top, so that it is shared between routes. I created a number of helper variables to make my source speak a little bit more like our business specs.
+Unfortunately the data about photoshoot comes in two sets of items. While I would've definitely had to query separately for in-depth info about photoshots, the fact that we have to display sums for each of our data objects which aren't actually provided (dates, clients and types of photoshoots) makes it difficult to deal with different sets of data being parallel to each other. So for now, I just called both and mapped the details to the generic info.
+
+The data fetching is handled by a nice reimplementation of `axios` called `ky`, which has become my favorite way to do requests. It has a good amount of features and well replaces `axios`, which is now pretty much abandoned. I'm doing the calls with a simple effect, which is dispatching our actions to handle the state; which, by itself, is stored in a context at the top, so that it is shared between routes. I created a number of helper variables to make my source speak a little bit more like our business specs.
+
+## Regrets in the second day
+
+While giving it a bit of a responsiveness at the end of the excercize, I realize that I would've probably did a better job, instead of mapping and declearing elements, to just add in a function that defines a column, takes in the component to display the single cell, the header, and a formatting function that would get the data from a messy bunch to a reasonable format.
+
+```jsx
+    function DataColumn ({header = "", CellComponent, formatFn, totalFn, dataset = []}) {
+        const dataColumn = formatFn(dataset);
+        return (
+            <React.Fragment>
+                <HeaderCell label={header} />
+                {dataColumn.map(cellData => <CellComponent {...cellData} />)}
+                <CellComponent {...totalFn(dataset)} />
+            </React.Fragment>
+        )
+    }
+```
+
+I'm now nearing the end of my time doing this so I'll see if I can implement it without too much hassle. 
+
+I'm also handling the responsive for last while I should've started it at the beginning probably, but it's pretty basic anyway. Tables are really the hardest kind of element to display on a mobile phone, so I will have them scroll horizontally.

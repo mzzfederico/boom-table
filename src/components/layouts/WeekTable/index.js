@@ -5,6 +5,27 @@ import Tag from "../Tag";
 
 const WEEK_DAYS = [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" ];
 
+/* Emits a formatted table using a component specified, formatting function, reducing functions, a column number and a dataset */
+function DataColumn({ header = "", shortHeader = "", CellComponent, formatFn, totalFn, column = 0, dataset = [] }) {
+    const dataColumn = formatFn(dataset);
+    return (
+        <React.Fragment>
+            <HeaderCell label={header} shortLabel={shortHeader} column={column} />
+            {dataColumn.map(cellData => <CellComponent {...{...cellData, column}} />)}
+            {typeof totalFn === "function" ? <CellComponent {...{...totalFn(dataset), column}} /> : null}
+        </React.Fragment>
+    );
+}
+
+/* Simple mapping of an array of strings to a bunch of children props */
+function mapLabels (array) {
+    return array.map(
+        element => ({
+            children: `${element}`
+        })
+    );
+}
+
 /**
  * Displays a number of photoshoots over the week
  * @param {Array} props.photoshoots our photoshoots of the week
@@ -21,6 +42,7 @@ const WeekTable = ({photoshoots = [], mode = "photoshoot"}) => {
             return map;
         }
     }, {});
+    const clientsIds = Object.keys(clients);
 
     /* I'm building an array of types which will then have their own shots arranged. */
     const types = photoshoots.reduce((map, shoot) => {
@@ -44,16 +66,15 @@ const WeekTable = ({photoshoots = [], mode = "photoshoot"}) => {
             />
         )
     );
-    
+                        
     return (
         <React.Fragment>
             <div className="WeekTable">
-                {/* Columns */}
 
                 {/* Displaying the shoots */}
                 {mode === "photoshoot" ? WEEK_DAYS.map((day, i) => (
                     <React.Fragment key={day}>
-                        <HeaderCell key={day} label={day} column={i + 1} />
+                        <HeaderCell label={day} shortLabel={day[0]} column={i + 1} />
                         {totals(1, "top")[i]}
                         {photoshoots
                             .filter(photoshoot => photoshoot.day_of_the_week === day)
@@ -72,40 +93,96 @@ const WeekTable = ({photoshoots = [], mode = "photoshoot"}) => {
 
                 {/* Displaying the rows by client */}
                 {mode === "client" ? <React.Fragment>
-                    <HeaderCell label={"clients"} column={1} />
-                    {Object.keys(clients).map(client => <ClientCell>{client}</ClientCell>)}
-                    {WEEK_DAYS.map((day, i) => (
-                        <React.Fragment key={day}>
-                            <HeaderCell label={day} column={i + 2} />
-                            {/* For each client, display the total for the day of the week */}
-                            {Object.keys(clients)
-                                .map((client, j) => {
-                                    const shoots = clients[client].filter(shoot => shoot.day_of_the_week === day);
-                                    const totalPictures = shoots.reduce((total, shoot) => total + shoot.details.number_of_photos, 0);
-                                    return <PlainCell key={`${day}-${j}`} day={day} total={totalPictures} column={i + 2} photoshoots={shoots.length} variant={j % 2 ? "odd" : ""} />;
-                                })}
-                            {totals(2, "bottom")[i]}
-                        </React.Fragment>
-                    ))}
+                    {/* Rows */}
+                    <DataColumn column={1} dataset={clientsIds} header="Clients" shortHeader="Clients" CellComponent={LabelCell} formatFn={mapLabels} />
+                    {/* Days of the week */}
+                    {WEEK_DAYS.map((day, i) => {
+                        return (
+                            <React.Fragment key={day}>
+                                <DataColumn
+                                    header={day}
+                                    shortHeader={day[0]}
+                                    dataset={clientsIds} 
+                                    CellComponent={PlainCell}
+                                    column={i + 2}
+                                    totalFn={
+                                        () => {
+                                            const total = photoshoots.filter(shoot => shoot.day_of_the_week === day).reduce((total, shoot) => total + shoot.details.number_of_photos, 0);
+                                            return { day, total: total, variant: "total-bottom" };
+                                        }
+                                    }
+                                    formatFn={
+                                        (clientsIds) => clientsIds.map(
+                                            (client, j) => {
+                                                const total = clients[client].filter(shoot => shoot.day_of_the_week === day).reduce((total, shoot) => total + shoot.details.number_of_photos, 0);
+                                                return { day, total: total, photoshoots: clients[client].filter(shoot => shoot.day_of_the_week === day).length, variant: j % 2 ? "odd" : "" };
+                                            }
+                                        )
+                                    }
+                                />
+                            </React.Fragment>
+                        );
+                    })}
+                    {/* Totals at the end of the table */}
+                    <React.Fragment>
+                        <DataColumn header={"week"} shortHeader={"tot"} dataset={clientsIds} CellComponent={PlainCell} column={9}
+                            totalFn={() => {
+                                const total = photoshoots.reduce((total, shoot) => total + shoot.details.number_of_photos, 0);
+                                return { day: "week-total", total: total, variant: "total-bottom" };
+                            }}
+                            formatFn={(clientsIds) => clientsIds.map(
+                                (client, j) => {
+                                    const total = clients[client] .reduce((total, shoot) => total + shoot.details.number_of_photos, 0);
+                                    return { day: "week-total", total: total, photoshoots: clients[client].length, variant: j % 2 ? "odd" : "" };
+                                }
+                            )}
+                        />
+                    </React.Fragment>
                 </React.Fragment> : null}
 
                 {/* Displaying the rows by type of photoshooting */}
                 {mode === "type" ? <React.Fragment>
-                    <HeaderCell label={"types"} column={1} />
-                    {Object.keys(types).map(type => <ClientCell>{type}</ClientCell>)}
-                    {WEEK_DAYS.map((day, i) => (
-                        <React.Fragment key={day}>
-                            <HeaderCell label={day} column={i + 2} />
-                            {/* For each client, display the total for the day of the week */}
-                            {Object.keys(types)
-                                .map((type, j) => {
-                                    const shoots = types[type].filter(shoot => shoot.day_of_the_week === day);
-                                    const totalPictures = shoots.reduce((total, shoot) => total + shoot.details.number_of_photos, 0);
-                                    return <PlainCell key={`${day}-${j}`} day={day} total={totalPictures} column={i + 2} photoshoots={shoots.length} variant={j % 2 ? "odd" : ""} />;
-                                })}
-                            {totals(2, "bottom")[i]}
-                        </React.Fragment>
-                    ))}
+                    {/* Rows */}
+                    <DataColumn column={1} dataset={Object.keys(types)} header="Types" shortHeader="Types"  CellComponent={LabelCell} formatFn={mapLabels} />
+                    {/* Days of the week */}
+                    {WEEK_DAYS.map((day, i) => {
+                        return (
+                            <React.Fragment key={day}>
+                                <DataColumn
+                                    header={day}
+                                    shortHeader={day[0]}
+                                    dataset={Object.keys(types)}
+                                    CellComponent={PlainCell}
+                                    column={i + 2}
+                                    totalFn={() => {
+                                        const total = photoshoots.filter(shoot => shoot.day_of_the_week === day).reduce((total, shoot) => total + shoot.details.number_of_photos, 0);
+                                        return { day, total: total, variant: "total-bottom" };
+                                    }}
+                                    formatFn={(typesIds) => typesIds.map(
+                                        (typeId, j) => {
+                                            const total = types[typeId].filter(shoot => shoot.day_of_the_week === day).reduce((total, shoot) => total + shoot.details.number_of_photos, 0);
+                                            return { day, total: total, photoshoots: types[typeId].filter(shoot => shoot.day_of_the_week === day).length, variant: j % 2 ? "odd" : "" };
+                                        }
+                                    )}
+                                />
+                            </React.Fragment>
+                        );
+                    })}
+                    {/* Totals at the end of the table */}
+                    <React.Fragment>
+                        <DataColumn header={"week"} shortHeader={"tot"} dataset={Object.keys(types)} CellComponent={PlainCell} column={9}
+                            totalFn={() => {
+                                const total = photoshoots.reduce((total, shoot) => total + shoot.details.number_of_photos, 0);
+                                return { day: "week-total", total: total, variant: "total-bottom" };
+                            }}
+                            formatFn={(typesIds) => typesIds.map(
+                                (typeId, j) => {
+                                    const total = types[typeId].reduce((total, shoot) => total + shoot.details.number_of_photos, 0);
+                                    return { day: "week-total", total: total, variant: j % 2 ? "odd" : "" };
+                                }
+                            )}
+                        />
+                    </React.Fragment>
                 </React.Fragment> : null}
 
                 {/* Displaying the rows by type */}
@@ -114,7 +191,7 @@ const WeekTable = ({photoshoots = [], mode = "photoshoot"}) => {
                     .WeekTable {
                         display: grid;
                         grid-auto-flow: column;
-                        grid-template-columns: repeat(${mode === "photoshoot" ? WEEK_DAYS.length : WEEK_DAYS.length + 1}, 1fr);
+                        grid-template-columns: repeat(${mode === "photoshoot" ? WEEK_DAYS.length : WEEK_DAYS.length + 2}, 1fr);
                     }
 
                     .WeekTable > div {
@@ -144,14 +221,16 @@ WeekTable.propTypes = {
 
 /**
  * Displays the top of the column
- * @param {String} props.label day we're displaying
+ * @param {String} props.label label we're displaying
+ * @param {String} props.shortLabel shorter label for mobile
  * @param {Integer} props.column index of the column we've positioned our data
  */
-const HeaderCell = ({ label, column = 1}) => (
+const HeaderCell = ({ label = "", shortLabel = "", column = 1}) => (
     <React.Fragment>
         {/* Column header */}
         <div className={`column column-${label.toLocaleLowerCase()}`}>
-            {label.toLocaleLowerCase()}
+            <span className="desktop">{label.toLocaleLowerCase()}</span>
+            <span className="mobile">{shortLabel.toLocaleLowerCase()}</span>
 
             <style jsx>{`
                 .column {
@@ -161,6 +240,19 @@ const HeaderCell = ({ label, column = 1}) => (
                     font-size: 0.85rem;
                     border-bottom: 1px solid #f7f7f7;
                     margin-bottom: 1rem;
+                }
+
+                .desktop {
+                    display: none;
+                }
+
+                @media screen and (min-width: 640px) {
+                    .desktop {
+                        display: inline;
+                    }
+                    .mobile {
+                        display: none;
+                    }
                 }
 
                 .column-${label.toLocaleLowerCase()} {
@@ -198,6 +290,12 @@ const PhotoshootCell = ({ day, photoshoot, variant = "", column = 1 }) => (
         <div className="client">client #{photoshoot.client_id}</div>
 
         <style jsx>{`
+            @media screen and (max-width: 640px) {
+                .meta {
+                    display: none;
+                }
+            }
+
             .photoshoot {
                 margin: 0.25rem 0;
             }
@@ -233,23 +331,36 @@ PhotoshootCell.propTypes = {
 };
 
 /**
- * Simply displays the client identifier
- * @param {String} param0 displays the label of the client cell
+ * Simply displays some data
+ * @param {String} params.children displays the label of the cell
+ * @param {String} params.column column of the cell
  */
-const ClientCell = ({children}) => (
-    <div className="client-head">
+const LabelCell = ({children, column = 0}) => (
+    <div className={`label-cell label-column-${column}`}>
         <span>{children}</span>
 
         <style jsx>{`
-            .client-head span {
+            .label-column-${column} {
+                grid-column: ${column}
+            }
+            .label-cell span {
+                text-align: right;
                 margin: 0.25rem 0;
-                padding: 0.5rem;
-            }    
+                padding: 0.5rem 0;
+                font-size: 0.85rem;
+            }
+
+            @media screen and (min-width: 640px) {
+                .label-cell {
+                    padding: 0.5rem;
+                    font-size: 0.95rem;
+                }
+            }
         `}</style>
     </div>
 );
 
-ClientCell.propTypes = {
+LabelCell.propTypes = {
     children: PropTypes.object
 };
 
@@ -262,29 +373,46 @@ ClientCell.propTypes = {
  * @param {Integer} props.column index of the column we've positioned our data
  */
 const PlainCell = ({ day, total = 0, variant = "", photoshoots = 0, column = 1 }) => (
-    <div className={`client client-${day.toLocaleLowerCase()} ${variant}`}>
+    <div className={`cell cell-${day.toLocaleLowerCase()} ${variant}`}>
         {/* Number of photos */}
-        <div className="number_of_photos">
-            {total > 0 ? <p className="label"><span>{total}</span> photos</p> : "-"}
+        <div className="number">
+            {total > 0 ? <p><span>{total}</span> <span className="label">photos</span></p> : "-"}
         </div>
-        {photoshoots > 0 && <span>{Array(photoshoots).fill().map((x, i) => "📷")}</span>}
+        {photoshoots > 0 && <span className={"photoshoots-count"}>{Array(photoshoots).fill().map((x, i) => "📷")}</span>}
 
         <style jsx>{`
-            .client-${day.toLocaleLowerCase()} {
+            .cell-${day.toLocaleLowerCase()} {
                 grid-column: ${column}
             }
 
-            .client p {
-                font-size: 0.8rem;
+            p {
                 margin: 0;
             }
 
-            .client p span {
-                font-size: 1rem;
+            .label, .photoshoots-count {
+                display: none;
+            }
+
+            .label {
+                font-size: 0.5rem;
+            }
+
+            .cell p span {
+                font-size: 0.75rem;
                 font-weight: 700;
             }
 
-            .number_of_photos span:nth-child(2) {
+            @media screen and (min-width: 640px) {
+                .cell p span {
+                    font-size: 1rem;
+                    font-weight: 700;
+                }
+                .label, .photoshoots-count {
+                    display: inline;
+                }
+            }
+
+            .number span:nth-child(2) {
                 font-size: 0.7rem;
             }
         `}</style>

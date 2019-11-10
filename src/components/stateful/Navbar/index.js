@@ -5,7 +5,6 @@ import {withRouter, NavLink} from "react-router-dom";
 const Navbar = () => (
     <nav>
         <ul>
-            <ListLink disableActive to={"/"}>Summary</ListLink>
             <ListLink to={"/clients"}>Clients</ListLink>
             <ListLink to={"/photoshoots"}>Photoshoots</ListLink>
             <ListLink to={"/typologies"}>Typologies</ListLink>

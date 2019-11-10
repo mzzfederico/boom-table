@@ -16,4 +16,4 @@ const Photoshoots = () => {
     );
 };
 
-export default withRouter(Photoshoots);
+export default Photoshoots;

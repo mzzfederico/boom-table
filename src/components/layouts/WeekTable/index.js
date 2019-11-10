@@ -429,4 +429,4 @@ PlainCell.propTypes = {
 
 export default WeekTable;
 
-export { WeekTable, PhotoshootCell, HeaderCell };
+export { WeekTable, PhotoshootCell, HeaderCell, PlainCell };

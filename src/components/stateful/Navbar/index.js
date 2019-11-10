@@ -9,7 +9,6 @@ const Navbar = () => {
         <nav>
             <button className={!openMenu ? "menu-btn" : "menu-btn active"} onClick={() => setOpenMenu(!openMenu)}>menu</button>
             <ul className={!openMenu ? "closed" : ""}>
-                <ListLink disableActive to={"/"}>Summary</ListLink>
                 <ListLink to={"/clients"}>Clients</ListLink>
                 <ListLink to={"/photoshoots"}>Photoshoots</ListLink>
                 <ListLink to={"/typologies"}>Typologies</ListLink>

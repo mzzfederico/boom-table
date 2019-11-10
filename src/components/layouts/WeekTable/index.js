@@ -261,7 +261,7 @@ ClientCell.propTypes = {
  * @param {String} props.variant adds somekind of special styling (total, odd)
  * @param {Integer} props.column index of the column we've positioned our data
  */
-const PlainCell = ({ day, total = 0, variant = "", photoshoots = 0, column = 1 }) => (
+const PlainCell = ({ day = "", total = 0, variant = "", photoshoots = 0, column = 1 }) => (
     <div className={`client client-${day.toLocaleLowerCase()} ${variant}`}>
         {/* Number of photos */}
         <div className="number_of_photos">
@@ -301,4 +301,4 @@ PlainCell.propTypes = {
 
 export default WeekTable;
 
-export { WeekTable, PhotoshootCell, HeaderCell };
+export { WeekTable, PhotoshootCell, HeaderCell, PlainCell };

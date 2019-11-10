@@ -1,4 +1,5 @@
-import ky from "ky";
+import ky from "ky/umd";
+/* UMD version bypasses an issue with Jest. Not a fan. */
 
 /**
  * Gets the request amount of photoshoots

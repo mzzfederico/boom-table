@@ -35,4 +35,4 @@ const useFetching = ({ args = [], asyncFn = async () => {} }) => {
     return { ...state };
 }; 
 
-export { reducers, combinedReducer, useFetching};
+export { initialState, reducers, combinedReducer, useFetching };

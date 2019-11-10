@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<nav>
+  <ul>
+    <li>
+      <a
+        aria-current="page"
+        className=""
+        href="/"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        Summary
+      </a>
+    </li>
+    <li>
+      <a
+        aria-current={null}
+        href="/clients"
+        onClick={[Function]}
+      >
+        Clients
+      </a>
+    </li>
+    <li>
+      <a
+        aria-current={null}
+        href="/photoshoots"
+        onClick={[Function]}
+      >
+        Photoshoots
+      </a>
+    </li>
+    <li>
+      <a
+        aria-current={null}
+        href="/typologies"
+        onClick={[Function]}
+      >
+        Typologies
+      </a>
+    </li>
+  </ul>
+  <style
+    jsx={true}
+  >
+    
+            nav {
+                margin-bottom: 1rem;
+            }
+            ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            li {
+                display: inline;
+            }
+            li:nth-child(1) {
+                margin-right: 1rem;
+            }
+            li a {
+                padding: 0.25rem;
+                color: black;
+                text-decoration: none;
+            }
+            li a.active {
+                border-bottom: 2px solid black;
+            }
+        
+  </style>
+</nav>
+`;

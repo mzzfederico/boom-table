@@ -4,190 +4,76 @@ exports[`renders without crashing 1`] = `
 <div
   className="App"
 >
-  <div
-    className="WeekTable"
-  >
-    <div
-      className="column column-monday"
-    >
-      monday
-      <style
-        jsx={true}
-      >
-        
-                .column {
-                    text-transform: lowercase;
-                    font-variant: small-caps;
-                    font-weight: 500;
-                    font-size: 0.85rem;
-                    border-bottom: 1px solid #f7f7f7;
-                    margin-bottom: 1rem;
-                }
-
-                .column-monday {
-                    grid-column: 1;
-                }
-            
-      </style>
-    </div>
-    <div
-      className="column column-tuesday"
-    >
-      tuesday
-      <style
-        jsx={true}
-      >
-        
-                .column {
-                    text-transform: lowercase;
-                    font-variant: small-caps;
-                    font-weight: 500;
-                    font-size: 0.85rem;
-                    border-bottom: 1px solid #f7f7f7;
-                    margin-bottom: 1rem;
-                }
-
-                .column-tuesday {
-                    grid-column: 2;
-                }
-            
-      </style>
-    </div>
-    <div
-      className="column column-wednesday"
-    >
-      wednesday
-      <style
-        jsx={true}
-      >
-        
-                .column {
-                    text-transform: lowercase;
-                    font-variant: small-caps;
-                    font-weight: 500;
-                    font-size: 0.85rem;
-                    border-bottom: 1px solid #f7f7f7;
-                    margin-bottom: 1rem;
-                }
-
-                .column-wednesday {
-                    grid-column: 3;
-                }
-            
-      </style>
-    </div>
-    <div
-      className="column column-thursday"
-    >
-      thursday
-      <style
-        jsx={true}
-      >
-        
-                .column {
-                    text-transform: lowercase;
-                    font-variant: small-caps;
-                    font-weight: 500;
-                    font-size: 0.85rem;
-                    border-bottom: 1px solid #f7f7f7;
-                    margin-bottom: 1rem;
-                }
-
-                .column-thursday {
-                    grid-column: 4;
-                }
-            
-      </style>
-    </div>
-    <div
-      className="column column-friday"
-    >
-      friday
-      <style
-        jsx={true}
-      >
-        
-                .column {
-                    text-transform: lowercase;
-                    font-variant: small-caps;
-                    font-weight: 500;
-                    font-size: 0.85rem;
-                    border-bottom: 1px solid #f7f7f7;
-                    margin-bottom: 1rem;
-                }
-
-                .column-friday {
-                    grid-column: 5;
-                }
-            
-      </style>
-    </div>
-    <div
-      className="column column-saturday"
-    >
-      saturday
-      <style
-        jsx={true}
-      >
-        
-                .column {
-                    text-transform: lowercase;
-                    font-variant: small-caps;
-                    font-weight: 500;
-                    font-size: 0.85rem;
-                    border-bottom: 1px solid #f7f7f7;
-                    margin-bottom: 1rem;
-                }
-
-                .column-saturday {
-                    grid-column: 6;
-                }
-            
-      </style>
-    </div>
-    <div
-      className="column column-sunday"
-    >
-      sunday
-      <style
-        jsx={true}
-      >
-        
-                .column {
-                    text-transform: lowercase;
-                    font-variant: small-caps;
-                    font-weight: 500;
-                    font-size: 0.85rem;
-                    border-bottom: 1px solid #f7f7f7;
-                    margin-bottom: 1rem;
-                }
-
-                .column-sunday {
-                    grid-column: 7;
-                }
-            
-      </style>
-    </div>
+  <nav>
+    <ul>
+      <li>
+        <a
+          aria-current="page"
+          className=""
+          href="/"
+          onClick={[Function]}
+          style={Object {}}
+        >
+          Summary
+        </a>
+      </li>
+      <li>
+        <a
+          aria-current={null}
+          href="/clients"
+          onClick={[Function]}
+        >
+          Clients
+        </a>
+      </li>
+      <li>
+        <a
+          aria-current={null}
+          href="/photoshoots"
+          onClick={[Function]}
+        >
+          Photoshoots
+        </a>
+      </li>
+      <li>
+        <a
+          aria-current={null}
+          href="/typologies"
+          onClick={[Function]}
+        >
+          Typologies
+        </a>
+      </li>
+    </ul>
     <style
       jsx={true}
     >
       
-                    .WeekTable {
-                        display: grid;
-                        grid-auto-flow: column;
-                        grid-template-columns: repeat(7, 1fr);
-                    }
-
-                    .WeekTable &gt; div {
-                        padding: 0.5rem;
-                    }
-
-                    .WeekTable &gt; .odd {
-                        background-color: #f7f7f7;
-                    }
-                
+            nav {
+                margin-bottom: 1rem;
+            }
+            ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            li {
+                display: inline;
+            }
+            li:nth-child(1) {
+                margin-right: 1rem;
+            }
+            li a {
+                padding: 0.25rem;
+                color: black;
+                text-decoration: none;
+            }
+            li a.active {
+                border-bottom: 2px solid black;
+            }
+        
     </style>
-  </div>
+  </nav>
   <style
     global={true}
     jsx={true}

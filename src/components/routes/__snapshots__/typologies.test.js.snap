@@ -1,14 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HeaderCell renders without crashing 1`] = `
+exports[`renders without crashing 1`] = `
 <div
-  className="column column-label test"
+  className="WeekTable"
 >
-  label test
-  <style
-    jsx={true}
+  <div
+    className="column column-types"
   >
-    
+    types
+    <style
+      jsx={true}
+    >
+      
                 .column {
                     text-transform: lowercase;
                     font-variant: small-caps;
@@ -18,213 +21,12 @@ exports[`HeaderCell renders without crashing 1`] = `
                     margin-bottom: 1rem;
                 }
 
-                .column-label test {
-                    grid-column: 3;
+                .column-types {
+                    grid-column: 1;
                 }
             
-  </style>
-</div>
-`;
-
-exports[`PhotoshootCell renders without crashing 1`] = `
-<div
-  className="photoshoot photoshoot-monday "
->
-  <div
-    className="meta"
-  >
-    <span
-      className="tag food"
-    >
-      Food
-      <style
-        jsx={true}
-      >
-        
-                .tag {
-                    border: 1px solid #333;
-                    color: #333;
-                    text-transform: lowercase;
-                    font-variant: small-caps;
-                    font-weight: 700;
-                    font-size: 0.70rem;
-                    line-height: 0.70rem;
-                    padding: 0.1rem 0.3rem;
-                    margin-right: 0.25rem;
-                    border-radius: 5px;
-                }
-
-                .tag.real_estate {
-                    border: 0;
-                    color: white;
-                    background-color: red;
-                }
-
-                .tag.event {
-                    border: 0;
-                    color: white;
-                    background-color: blue;
-                }
-
-                .tag.food {
-                    border: 0;
-                    color: white;
-                    background-color: green;
-                }
-
-                .tag.other {
-                    border: 0;
-                    color: white;
-                    background-color: purple;
-                }
-            
-      </style>
-    </span>
-    <span
-      className="tag xl"
-    >
-      XL
-      <style
-        jsx={true}
-      >
-        
-                .tag {
-                    border: 1px solid #333;
-                    color: #333;
-                    text-transform: lowercase;
-                    font-variant: small-caps;
-                    font-weight: 700;
-                    font-size: 0.70rem;
-                    line-height: 0.70rem;
-                    padding: 0.1rem 0.3rem;
-                    margin-right: 0.25rem;
-                    border-radius: 5px;
-                }
-
-                .tag.real_estate {
-                    border: 0;
-                    color: white;
-                    background-color: red;
-                }
-
-                .tag.event {
-                    border: 0;
-                    color: white;
-                    background-color: blue;
-                }
-
-                .tag.food {
-                    border: 0;
-                    color: white;
-                    background-color: green;
-                }
-
-                .tag.other {
-                    border: 0;
-                    color: white;
-                    background-color: purple;
-                }
-            
-      </style>
-    </span>
+    </style>
   </div>
-  <div
-    className="number_of_photos"
-  >
-    <span>
-      90
-    </span>
-    <span
-      className="label"
-    >
-      photos
-    </span>
-  </div>
-  <div
-    className="client"
-  >
-    client #
-    90
-  </div>
-  <style
-    jsx={true}
-  >
-    
-            .photoshoot {
-                margin: 0.25rem 0;
-            }
-
-            .photoshoot-monday {
-                grid-column: 1
-            }
-
-            .photoshoot &gt; div {
-                margin-bottom: 0.125rem;
-            }
-
-            .number_of_photos span:nth-child(1) {
-                font-weight: 700;
-                margin-right: 0.25rem;
-            }
-
-            .number_of_photos span:nth-child(2) {
-                font-size: 0.8rem;
-            }
-
-            .client {
-                font-size: 0.7rem;
-            }
-        
-  </style>
-</div>
-`;
-
-exports[`PlainCell renders without crashing 1`] = `
-<div
-  className="client client-monday total-top"
->
-  <div
-    className="number_of_photos"
-  >
-    <p
-      className="label"
-    >
-      <span>
-        1000
-      </span>
-       photos
-    </p>
-  </div>
-  <style
-    jsx={true}
-  >
-    
-            .client-monday {
-                grid-column: 3
-            }
-
-            .client p {
-                font-size: 0.8rem;
-                margin: 0;
-            }
-
-            .client p span {
-                font-size: 1rem;
-                font-weight: 700;
-            }
-
-            .number_of_photos span:nth-child(2) {
-                font-size: 0.7rem;
-            }
-        
-  </style>
-</div>
-`;
-
-exports[`WeekTable renders without crashing 1`] = `
-<div
-  className="WeekTable"
->
   <div
     className="column column-monday"
   >
@@ -243,13 +45,13 @@ exports[`WeekTable renders without crashing 1`] = `
                 }
 
                 .column-monday {
-                    grid-column: 1;
+                    grid-column: 2;
                 }
             
     </style>
   </div>
   <div
-    className="client client-monday total-top"
+    className="client client-monday total-bottom"
   >
     <div
       className="number_of_photos"
@@ -261,7 +63,7 @@ exports[`WeekTable renders without crashing 1`] = `
     >
       
             .client-monday {
-                grid-column: 1
+                grid-column: 2
             }
 
             .client p {
@@ -298,13 +100,13 @@ exports[`WeekTable renders without crashing 1`] = `
                 }
 
                 .column-tuesday {
-                    grid-column: 2;
+                    grid-column: 3;
                 }
             
     </style>
   </div>
   <div
-    className="client client-tuesday total-top"
+    className="client client-tuesday total-bottom"
   >
     <div
       className="number_of_photos"
@@ -316,7 +118,7 @@ exports[`WeekTable renders without crashing 1`] = `
     >
       
             .client-tuesday {
-                grid-column: 2
+                grid-column: 3
             }
 
             .client p {
@@ -353,13 +155,13 @@ exports[`WeekTable renders without crashing 1`] = `
                 }
 
                 .column-wednesday {
-                    grid-column: 3;
+                    grid-column: 4;
                 }
             
     </style>
   </div>
   <div
-    className="client client-wednesday total-top"
+    className="client client-wednesday total-bottom"
   >
     <div
       className="number_of_photos"
@@ -371,7 +173,7 @@ exports[`WeekTable renders without crashing 1`] = `
     >
       
             .client-wednesday {
-                grid-column: 3
+                grid-column: 4
             }
 
             .client p {
@@ -408,13 +210,13 @@ exports[`WeekTable renders without crashing 1`] = `
                 }
 
                 .column-thursday {
-                    grid-column: 4;
+                    grid-column: 5;
                 }
             
     </style>
   </div>
   <div
-    className="client client-thursday total-top"
+    className="client client-thursday total-bottom"
   >
     <div
       className="number_of_photos"
@@ -426,7 +228,7 @@ exports[`WeekTable renders without crashing 1`] = `
     >
       
             .client-thursday {
-                grid-column: 4
+                grid-column: 5
             }
 
             .client p {
@@ -463,13 +265,13 @@ exports[`WeekTable renders without crashing 1`] = `
                 }
 
                 .column-friday {
-                    grid-column: 5;
+                    grid-column: 6;
                 }
             
     </style>
   </div>
   <div
-    className="client client-friday total-top"
+    className="client client-friday total-bottom"
   >
     <div
       className="number_of_photos"
@@ -481,7 +283,7 @@ exports[`WeekTable renders without crashing 1`] = `
     >
       
             .client-friday {
-                grid-column: 5
+                grid-column: 6
             }
 
             .client p {
@@ -518,13 +320,13 @@ exports[`WeekTable renders without crashing 1`] = `
                 }
 
                 .column-saturday {
-                    grid-column: 6;
+                    grid-column: 7;
                 }
             
     </style>
   </div>
   <div
-    className="client client-saturday total-top"
+    className="client client-saturday total-bottom"
   >
     <div
       className="number_of_photos"
@@ -536,7 +338,7 @@ exports[`WeekTable renders without crashing 1`] = `
     >
       
             .client-saturday {
-                grid-column: 6
+                grid-column: 7
             }
 
             .client p {
@@ -573,13 +375,13 @@ exports[`WeekTable renders without crashing 1`] = `
                 }
 
                 .column-sunday {
-                    grid-column: 7;
+                    grid-column: 8;
                 }
             
     </style>
   </div>
   <div
-    className="client client-sunday total-top"
+    className="client client-sunday total-bottom"
   >
     <div
       className="number_of_photos"
@@ -591,7 +393,7 @@ exports[`WeekTable renders without crashing 1`] = `
     >
       
             .client-sunday {
-                grid-column: 7
+                grid-column: 8
             }
 
             .client p {
@@ -617,7 +419,7 @@ exports[`WeekTable renders without crashing 1`] = `
                     .WeekTable {
                         display: grid;
                         grid-auto-flow: column;
-                        grid-template-columns: repeat(7, 1fr);
+                        grid-template-columns: repeat(8, 1fr);
                     }
 
                     .WeekTable &gt; div {
